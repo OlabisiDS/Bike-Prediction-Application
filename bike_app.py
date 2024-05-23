@@ -25,14 +25,14 @@ def preprocess_inputs(inputs):
     return df_inputs
 
 # Function to make predictions
-def predict(inputs):
-    preprocessed_inputs = preprocess_inputs(inputs)
-    log_predictions = model.predict(preprocessed_inputs)
-    predictions = np.expm1(log_predictions)  # Inverse log transform to get original scale predictions
-    return predictions
+def predict_bike_rentals(input_data):
+    prediction_log = model.predict(input_data)
+    prediction = np.expm1(prediction_log)  # Inverse log transform
+    prediction_rounded = np.round(prediction).astype(int)
+    return prediction_rounded
 
 # Streamlit UI
-st.title("Bike Sharing Demand Prediction")
+st.title("Bike Demand Prediction")
 
 # User inputs
 yr = st.selectbox("Year", options=[2011, 2012])
